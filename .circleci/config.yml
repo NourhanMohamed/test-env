@@ -7,24 +7,23 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          - v1-dependencies-
+          keys: 
+            - v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-        name: Install Dependencies
-        command: |
-          python -m venv venv
-          . venv/bin/activate
-          make install
+          name: Install Dependencies
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            make install
       - save_cache:
-        paths: 
-        - ./venv
-        key: v1-dependencies-{{ checksum "requirements.txt" }}
+          paths: 
+          - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-        name: Lint code
-        command: |
-          . venv/bin/activate
-          make lint
+          name: Lint code
+          command: |
+            . venv/bin/activate
+            make lint
 
 workflows:
   main:
